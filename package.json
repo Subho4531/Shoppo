@@ -1,0 +1,23 @@
+{
+  "name": "shoppo",
+  "version": "1.0.0",
+  "description": "A e-commerce website to sell premeium products'",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "shoppo"
+  },
+  "author": "Jeet",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "multer": "^2.0.1"
+  }
+}
