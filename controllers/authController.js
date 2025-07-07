@@ -36,15 +36,19 @@ module.exports.registerUser = async (req, res) => {
 module.exports.loginUser = async (req,res) =>{
     let {email,password} = req.body;
 
-    let user = userModel.findOne({email:email});
+    let user = await userModel.findOne({email:email});
 
     if(!user){
-        return res.send("User Doesn't Exists")
-    }
+        return res.status(404).send("Email Or Password Incorrect");
+    } 
 
     bcrypt.compare(password , user.password, (err,reasult)=>{
         if(reasult){
-           generateToken(user);
+           const token = generateToken(user);
+           res.cookie("token", token);  
+           res.send("You can login");
+
         }
+        else res.send("Email or Password Incorrect").status(404);
     })
 }
