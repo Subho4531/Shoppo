@@ -5,13 +5,13 @@ const checkLogin = require("../middlewares/checkLogin");
 
 router.get("/", (req, res) => {
   
-  res.render("signin");
+  res.render("signin",{messages:req.flash()});
 
 });
 
 if (process.env.NODE_ENV === "development") {
-  router.post("/register",checkLogin,registerUser);
-  router.post("/login",checkLogin,loginUser);
+  router.post("/register",registerUser);
+  router.post("/login",loginUser);
   
 }
 

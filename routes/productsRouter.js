@@ -1,9 +1,10 @@
 const express = require("express");
+const checkLogin = require("../middlewares/checkLogin");
 
 const router = express.Router();
 
-router.get("/",(req,res)=>{
-    res.send("Hello")
+router.get("/",checkLogin,(req,res)=>{
+    res.render("products");
 })
 
 

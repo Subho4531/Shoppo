@@ -6,7 +6,10 @@
     <title>Users</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="w-full h-screen p-10 items-center">
+<body class="w-full h-screen p-10 ">
+    <% if (messages) {%>
+        <%- include('partials/flash', {messages}) %>
+    <% } %>
     <h1 class="text-4xl font-bold tracking-wider">Shoppo</h1>
     
     <div class="flex items-center justify-center gap-10 mt-36" >

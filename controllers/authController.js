@@ -9,7 +9,8 @@ module.exports.registerUser = async (req, res) => {
     let { fullname, email, password } = req.body;
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
-      return res.status(400).send("User already exists with this email");
+      req.flash("error", "Email already registered");
+      return res.redirect("/users");
     }
 
     bcrypt.genSalt(10, function (err, salt) {
@@ -25,7 +26,7 @@ module.exports.registerUser = async (req, res) => {
         );
         res.cookie("token", token);
 
-        res.status(200).send(createdUser);
+        res.status(200).redirect("/products");
       });
     });
   } catch (err) {
@@ -33,22 +34,24 @@ module.exports.registerUser = async (req, res) => {
   }
 };
 
-module.exports.loginUser = async (req,res) =>{
-    let {email,password} = req.body;
+module.exports.loginUser = async (req, res) => {
+  let { email, password } = req.body;
 
-    let user = await userModel.findOne({email:email});
+  let user = await userModel.findOne({ email: email });
 
-    if(!user){
-        return res.status(404).send("Email Or Password Incorrect");
-    } 
+  if (!user) {
+    req.flash("error", "Email or Password Incorrect");
+    return res.status(404).redirect("/users");
+  }
 
-    bcrypt.compare(password , user.password, (err,reasult)=>{
-        if(reasult){
-           const token = generateToken(user);
-           res.cookie("token", token);  
-           res.send("You can login");
-
-        }
-        else res.send("Email or Password Incorrect").status(404);
-    })
-}
+  bcrypt.compare(password, user.password, (err, reasult) => {
+    if (reasult) {
+      const token = generateToken(user);
+      res.cookie("token", token);
+      res.status(200).redirect("/products");
+    } else {
+      req.flash("error", "Email or Password Incorrect");
+      res.status(404).redirect("/users");
+    }
+  });
+};
