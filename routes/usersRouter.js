@@ -9,10 +9,10 @@ router.get("/", (req, res) => {
 
 });
 
-if (process.env.NODE_ENV === "development") {
+
   router.post("/register",registerUser);
   router.post("/login",loginUser);
   
-}
+
 
 module.exports = router;
