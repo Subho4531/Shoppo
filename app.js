@@ -5,7 +5,7 @@ const app = express();
 const path = require("path");
 const cookieParser=require("cookie-parser");
 const flash  = require("connect-flash");
-const session = require("express-session")
+const session = require("express-session");
 
 
 
